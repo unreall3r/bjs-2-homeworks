@@ -27,19 +27,6 @@ class PrintEditionItem {
       return this._state;
     }
   }
-
-
-
-  const sherlock = new PrintEditionItem(
-    "Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе",
-    2019,
-    1008
-   );
-   
-   console.log(sherlock.releaseDate); //2019
-   console.log(sherlock.state); //100
-   sherlock.fix();
-   console.log(sherlock.state); //100
   
   class Magazine extends PrintEditionItem {
     constructor(name, releaseDate, pagesCount) {
@@ -48,8 +35,6 @@ class PrintEditionItem {
     }
   }
   
-
-
   class Book extends PrintEditionItem {
     constructor(author, name, releaseDate, pagesCount) {
       super(name, releaseDate, pagesCount);
@@ -79,17 +64,27 @@ class PrintEditionItem {
     }
   }
 
-
-
-  const picknick = new FantasticBook(
-    "Аркадий и Борис Стругацкие",
-    "Пикник на обочине",
-    1972,
-    168
-  );
+  class Library {
+    constructor(name) {
+      this.name = name;
+      this.books = [];
+    }
   
-  console.log(picknick.author); //"Аркадий и Борис Стругацкие"
-  picknick.state = 10;
-  console.log(picknick.state); //10
-  picknick.fix();
-  console.log(picknick.state); //15
+    addBook(book) {
+      if (book.state > 30) {
+        this.books.push(book);
+      }
+    }
+  
+    findBookBy(type, value) {
+      return this.books.find(book => book[type] === value) || null;
+    }
+  
+    giveBookByName(bookName) {
+      const bookIndex = this.books.findIndex(book => book.name === bookName);
+      if (bookIndex !== -1) {
+        return this.books.splice(bookIndex, 1)[0]; // Удаляем и возвращаем книгу
+      }
+      return null;
+    }
+  }

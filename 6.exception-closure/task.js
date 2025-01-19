@@ -24,16 +24,24 @@ class Triangle {
       this.a = a;
       this.b = b;
       this.c = c;
+  
+      this._perimeter = null;
+      this._area = null;
     }
   
     get perimeter() {
-      return this.a + this.b + this.c;
+      if (this._perimeter === null) {
+        this._perimeter = this.a + this.b + this.c;
+      }
+      return this._perimeter;
     }
   
     get area() {
-      const p = this.perimeter / 2;
-      const area = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
-      return area.toFixed(3);
+      if (this._area === null) {
+        const p = this.perimeter / 2;
+        this._area = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
+      }
+      return this._area.toFixed(3);
     }
   }
   
@@ -51,4 +59,5 @@ class Triangle {
       };
     }
   }
+  
   

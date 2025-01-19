@@ -14,6 +14,8 @@
     }
   }
 
+// Вторая задача
+
 class Triangle {
     constructor(a, b, c) {
       if (a + b <= c || a + c <= b || b + c <= a) {
@@ -39,7 +41,7 @@ class Triangle {
         const p = this.perimeter / 2;
         this._area = Math.sqrt(p * (p - this.a) * (p - this.b) * (p - this.c));
       }
-      return this._area.toFixed(3);
+      return Number(this._area.toFixed(3));
     }
   }
   
@@ -57,5 +59,6 @@ class Triangle {
       };
     }
   }
+  
   
   

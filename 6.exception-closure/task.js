@@ -56,7 +56,7 @@ class Triangle {
         get perimeter() {
           return "Ошибка! Треугольник не существует";
         }
-      };
+      }
     }
   }
   

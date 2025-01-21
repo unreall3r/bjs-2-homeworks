@@ -23,3 +23,26 @@ class AlarmClock {
     removeClock(time) {
       this.alarmCollection = this.alarmCollection.filter(alarm => alarm.time !== time);
     }
+  
+    getCurrentFormattedTime() {
+      const now = new Date();
+      const hours = now.getHours().toString().padStart(2, '0');
+      const minutes = now.getMinutes().toString().padStart(2, '0');
+      return `${hours}:${minutes}`;
+    }
+  
+    start() {
+      if (this.intervalId !== null) {
+        return;
+      }
+  
+      this.intervalId = setInterval(() => {
+        const currentTime = this.getCurrentFormattedTime();
+        this.alarmCollection.forEach(alarm => {
+          if (alarm.time === currentTime && alarm.canCall) {
+            alarm.canCall = false;
+            alarm.callback();
+          }
+        });
+      }, 1000);
+    }

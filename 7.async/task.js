@@ -11,17 +11,20 @@ class AlarmClock {
   
       if (this.alarmCollection.some(alarm => alarm.time === time)) {
         console.warn('Уже присутствует звонок на это же время');
+        return;
       }
   
       this.alarmCollection.push({
         time,
         callback,
-        canCall: true
+        canCall: true,
       });
     }
   
     removeClock(time) {
+      const initialLength = this.alarmCollection.length;
       this.alarmCollection = this.alarmCollection.filter(alarm => alarm.time !== time);
+      return initialLength !== this.alarmCollection.length;
     }
   
     getCurrentFormattedTime() {
@@ -46,3 +49,23 @@ class AlarmClock {
         });
       }, 1000);
     }
+  
+    stop() {
+      if (this.intervalId !== null) {
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+      }
+    }
+  
+    resetAllCalls() {
+      this.alarmCollection.forEach(alarm => {
+        alarm.canCall = true;
+      });
+    }
+  
+    clearAlarms() {
+      this.stop();
+      this.alarmCollection = [];
+    }
+  }
+  
